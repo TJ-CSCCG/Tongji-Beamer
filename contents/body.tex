@@ -1,0 +1,178 @@
+%% body.tex
+%% Copyright 2022 skyleaworlder
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2003/12/01 or later.
+%
+% This work has the LPPL maintenance status "maintained".
+% 
+% This Current Maintainer of this work is skyleaworlder.
+%
+% This work consists of all the *.tex and *.sty files in
+%   https://github.com/TJ-CSCCG/Tongji-Beamer
+\section{系统分析}
+    % “图片文字并排” 示例
+    \begin{frame}{内卷行为归因系统}
+        \begin{columns}
+            \column{.35\textwidth}
+            \begin{figure}
+                \centering \includegraphics[width=2in]{contents/figure/factor-analyzer.png}
+                \caption{归因系统架构}
+                \label{fig:factor-analyzer}
+            \end{figure}
+            
+            \column{.6\textwidth}
+            \begin{itemize}
+                \item 校内监控系统：接入校内系统，使用过往录像作为归因系统模型训练数据集。
+                \item 特征提取器：项目提出了数十种内卷特征类型。提取器要求人工为部分数据集标记标签。
+                \item 内卷归因器：阅读历史文献，得出数十种内卷成因，构建内卷特征到成因的映射函数。
+                \item 报告持续生成器：开发该系统的报告生成器，提升用户体验。
+            \end{itemize}
+        \end{columns}
+    \end{frame}
+    
+    % “图片文字垂直” 示例
+    \begin{frame}{内卷识别器}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.4\textwidth]{contents/figure/data-detector.png}
+            \caption{识别器架构}
+            \label{fig:data-detector}
+        \end{figure}
+        
+        \begin{itemize}
+            \item \small 复用归因系统中有关图像处理的 Phase，编写软硬件接口，对接校内监控系统终端设备。
+            \item \small 识别器特征提取结果将上传至我校私有云上，方便监管与处理。
+        \end{itemize}
+    \end{frame}
+    
+    % “多图片文字混合” 示例
+    \begin{frame}{内卷信息收集与行为防范系统}
+        \begin{columns}
+            \column{.4\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\textwidth]{contents/figure/data-detector.png}
+                \caption{识别器架构}
+                \label{fig:data-detector-2}
+            \end{figure}
+        
+            \column{.3\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\textwidth]{contents/figure/collector-part-1.png}
+                \caption{信息收集系统}
+                \label{fig:collector-part-1}
+            \end{figure}
+            
+            \column{.3\textwidth}
+            \begin{figure}
+                \centering
+                 \includegraphics[width=\textwidth]{contents/figure/collector-part-2.png}
+                \caption{行为防范系统}
+                \label{fig:collector-part-2}
+            \end{figure}
+        \end{columns}
+        
+        \small 信息收集系统使用一个服务作为所有监控终端设备的 “注册中心”，提供鉴权、心跳检查等能力。行为规范系统复用了归因系统中有关因素分析的 Phase，以此作为决策树的判断基础。
+    \end{frame}
+
+ 
+\section{合理性分析}
+    % “数学” 与 “公式” 示例
+    \begin{frame}{专有名词释义}
+        \begin{definition}[永夜势力]
+            考虑一所高校，其中永夜村民的数量除以学生总数的值。
+        \end{definition}
+        \begin{theorem}[永夜定理]
+            考虑一所高校，在不存在干涉的情况下，永夜势力在小于 1 前，恒呈指数型增长。
+        \end{theorem}
+        \begin{theorem}[永夜方程]
+            考虑一所高校，人为干涉存在 x 的概率无效。x 是下列方程的解，其中 n 为全校学生总数。
+        \end{theorem}
+        
+        \begin{equation}
+            \begin{vmatrix}
+            \begin{bmatrix}
+                    x & \Phi(\pi) \\
+                    \sum_{i = 1}^n xi & \exp(xi)
+            \end{bmatrix}
+            \begin{bmatrix}
+                    1 & \cdots & n \\
+                    x\Phi(e) & \cdots & x\Phi^n(e^n)
+            \end{bmatrix}
+            \end{vmatrix} = \dfrac{\pi}{x}
+        \end{equation}
+    \end{frame}
+    
+    % “简单公式” 示例
+    \begin{frame}{负载分析}
+        系统在设计时进行了计算下沉，分离图像处理的多个步骤，实现计算的高效性。
+        
+        假设 $id \in [1850001, 1859999]$，识别器与分析器共有 $m$ 个机器，第 $i$ 个机器负责 $[1850001 + i \times \frac{9999}{m}, 1859999 + (i + 1) \times \frac{9999}{100}]$ 个单位。
+        
+        识别层机器会发送分析层机器需要的特定记录到存储中。存储中每个节点大小为 16 KB，由于一条记录占据 4 00B 的空间，有：
+        
+        $$
+        Node = \dfrac{16 \times 1024 B}{400 B} \approx 16
+        $$
+        
+        假设 $t$ 为一次操作所花费的时间，设单表大小为 $M$。在不进行计算分离时，消耗的时间 $T = Mt$。但在分离过后，全过程时间为：
+        
+        $$
+        T' = \dfrac{M}{m} + \dfrac{9999}{m} \times t < Mt, \quad if\ m > \dfrac{1}{t} + \dfrac{9999}{M}
+        $$
+    \end{frame}
+
+
+\section{组件设计}
+    % “表格” 示例
+    \begin{frame}{决策系统设计}
+        \begin{table}[]
+            \centering
+            \begin{tabular}{c|c|c}
+            \textbf{运行时间} & \textbf{实验组} & \textbf{对照组（单位 1）} \\
+            \hline
+                设计模式使用 vs. 不使用 & 1.1 & 1 \\
+                Julia vs. Python & 0.7 & 1 \\
+                负载均衡集群 vs. 单机 & 0.5 & 1 \\
+                集群分布式缓存 vs. 无缓存 & 0.8 & 1 \\
+            \end{tabular}
+            \caption{各技术对决策系统的影响}
+            \label{tab:tech-strategy}
+        \end{table}
+
+        \begin{columns}
+            \small
+            \column{.5\textwidth}
+            \begin{itemize}
+                \item 使用 Strategy 设计模式。
+                \item 使用 Julia 高效计算矩阵乘法。
+                \item 对归因系统暴露幂等性 API，使用计算集群增强计算能力。
+            \end{itemize}
+            
+            \column{.5\textwidth}
+            \begin{itemize}
+                \item 采用负载均衡，平衡集群中各处理机的负载。
+                \item 采用分布式缓存技术，加快集群整体对高频特殊输入的反应。
+            \end{itemize}
+        \end{columns}
+    \end{frame}
+
+    % “引用” 示例
+    \begin{frame}{通知系统设计}
+        著名哲人 skyleaworlder 有言：“内卷是可以被扼杀在摇篮中的。"\cite{involution} 只要在检测到疑似内卷行为后做到及时响应，由专业技术人员发起干涉，就有很相当概率阻止永夜势力的扩张。
+        
+        通知系统需要具备以下几个方面特性：
+        \begin{enumerate}
+            \item 即时性。内卷极易滋生壮大，通知专业技术人员的时间应该尽可能短。
+            \item 高可用性。内卷行为来势汹汹，需要保证通知系统推送功能在高并发环境下的高可用性。
+        \end{enumerate}
+        
+        自然卷说过：“内卷是凡人在挣扎中写下的血与泪的史诗。"\cite{undergrads_inv} 这份 “扭曲的美” 不应存于世间。
+    \end{frame}

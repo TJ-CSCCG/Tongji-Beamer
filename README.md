@@ -61,17 +61,13 @@
 
 ### 2. Overleaf
 
-> 万恶的 Overleaf 在合并壮大后将 GitHub Sync 变成了一个收费功能，
->
-> 在此严肃谴责 Overleaf 的疑似垄断行为。
-
 ```shell
 > git clone https://github.com/TJ-CSCCG/Tongji-Beamer
 ```
 
 之后登陆 Overleaf，新建项目后，将整个文件夹直接上传到项目中。
 
-为确保编译通过，需将 Overleaf 的 Menu/Compiler 设置为 **XeLaTeX**。
+为确保编译通过，需将 Overleaf 的 Menu/Compiler 设置为 **XeLaTeX** / **LuaLaTeX**。
 
 ## :two: 贡献
 

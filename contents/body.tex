@@ -19,9 +19,9 @@
     % “图片文字并排” 示例
     \begin{frame}{内卷行为归因系统}
         \begin{columns}
-            \column{.35\textwidth}
+            \column{.3\textwidth}
             \begin{figure}
-                \centering \includegraphics[width=2in]{contents/figure/factor-analyzer.png}
+                \centering \includegraphics[width=.95\textwidth]{contents/figure/factor-analyzer.png}
                 \caption{归因系统架构}
                 \label{fig:factor-analyzer}
             \end{figure}
@@ -40,7 +40,7 @@
     \begin{frame}{内卷识别器}
         \begin{figure}
             \centering
-            \includegraphics[width=.4\textwidth]{contents/figure/data-detector.png}
+            \includegraphics[width=.3\textwidth]{contents/figure/data-detector.png}
             \caption{识别器架构}
             \label{fig:data-detector}
         \end{figure}
@@ -54,7 +54,7 @@
     % “多图片文字混合” 示例
     \begin{frame}{内卷信息收集与行为防范系统}
         \begin{columns}
-            \column{.4\textwidth}
+            \column{.3\textwidth}
             \begin{figure}
                 \centering
                 \includegraphics[width=\textwidth]{contents/figure/data-detector.png}
@@ -62,7 +62,7 @@
                 \label{fig:data-detector-2}
             \end{figure}
 
-            \column{.3\textwidth}
+            \column{.2\textwidth}
             \begin{figure}
                 \centering
                 \includegraphics[width=\textwidth]{contents/figure/collector-part-1.png}
@@ -70,7 +70,7 @@
                 \label{fig:collector-part-1}
             \end{figure}
 
-            \column{.3\textwidth}
+            \column{.25\textwidth}
             \begin{figure}
                 \centering
                  \includegraphics[width=\textwidth]{contents/figure/collector-part-2.png}
@@ -119,13 +119,13 @@
         识别层机器会发送分析层机器需要的特定记录到存储中。存储中每个节点大小为 16 KB，由于一条记录占据 4 00B 的空间，有：
 
         $$
-        Node = \dfrac{16 \times 1024 B}{400 B} \approx 16
+        Node = \dfrac{16 \times 1024\operatorname{B}}{400 \operatorname{B}} \approx 16
         $$
 
         假设 $t$ 为一次操作所花费的时间，设单表大小为 $M$。在不进行计算分离时，消耗的时间 $T = Mt$。但在分离过后，全过程时间为：
 
         $$
-        T' = \dfrac{M}{m} + \dfrac{9999}{m} \times t < Mt, \quad if\ m > \dfrac{1}{t} + \dfrac{9999}{M}
+        T' = \dfrac{M}{m} + \dfrac{9999}{m} \cdot t < Mt, \quad \text{if } m > \dfrac{1}{t} + \dfrac{9999}{M}
         $$
     \end{frame}
 

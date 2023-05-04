@@ -61,6 +61,12 @@
 
 ### 2. Overleaf
 
+#### 通过模板新建项目
+
+您可以通过以下链接访问我们的 Overleaf 模板并使用：[![svg of overleaf-tongjibeamer](https://img.shields.io/badge/Overleaf-TJ--CSCCG%2FTongji--Beamer-green)](https://www.overleaf.com/latex/templates/tongji-beamer-template/gnbqzdkqfqbb)
+
+#### 自行导入 Overleaf
+
 ```shell
 > git clone https://github.com/TJ-CSCCG/Tongji-Beamer
 ```

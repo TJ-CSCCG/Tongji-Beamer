@@ -60,8 +60,7 @@
 
 % background
 \usepackage{tikz}
-\usepackage[inkscapeformat=png]{svg}
 \usebackgroundtemplate{%
 \tikz[overlay,remember picture] \node[opacity=.15, at=(current page.center)] {
-   \includesvg[height=.55\paperheight]{figure/logo.svg}};
+   \includegraphics[height=.55\paperheight]{figure/logo.pdf}};
 }

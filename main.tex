@@ -24,15 +24,26 @@
 
 \usetheme{tongji}
 
+% Customizations for URL and DOI fonts
+\def\UrlFont{\ttfamily}
+\DeclareFieldFormat{doi}{%
+  \sffamily{DOI}\addcolon\space
+  \ifhyperref
+    {\href{https://doi.org/#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}}
+
+
 %Information to be included in the title page:
-\title[Eternal-Night-Star-Bow]{Eternal-Night-Star-Bow: Yet Another Implementation of Involution Detect System}
+\title[Eternal-Night-Star-Bow]{Eternal-Night-Star-Bow: An Involution Detect System Implementation}
 \subtitle{永夜星弓：内卷程度检测系统的一种实现}
 \author[skyleaworlder, Cathy Mole]{
     1859527 skyleaworlder (Markdown Engineer), \\
     1852333 Cathy Mole (Eternal Night Archer)
 }
 \institute[IS, CS Dept., CEIE, Tongji Univ.]{
-    Information Security, Computer Science and Technology Department, College of Electronic and Information Engineering (CEIE), Tongji University. \\
+    Information Security, Computer Science and Technology Department, \\
+    College of Electronic and Information Engineering (CEIE), \\
+    Tongji University. \\
     同济大学\ 电子与信息工程学院\ 计算机科学与技术系\ 信息安全
 }
 \date{\today}

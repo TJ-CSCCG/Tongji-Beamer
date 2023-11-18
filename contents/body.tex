@@ -46,7 +46,7 @@
         \end{figure}
 
         \begin{itemize}
-            \item \small 复用归因系统中有关图像处理的 Phase，编写软硬件接口，对接校内监控系统终端设备。
+            \item \small 复用归因系统中图像处理的特定阶段，编写软硬件接口，对接校内监控系统终端。
             \item \small 识别器特征提取结果将上传至我校私有云上，方便监管与处理。
         \end{itemize}
     \end{frame}
@@ -79,7 +79,7 @@
             \end{figure}
         \end{columns}
 
-        \small 信息收集系统使用一个服务作为所有监控终端设备的 “注册中心”，提供鉴权、心跳检查等能力。行为规范系统复用了归因系统中有关因素分析的 Phase，以此作为决策树的判断基础。
+        \small 信息收集系统使用一个服务作为所有监控终端设备的“注册中心”，提供鉴权、心跳检查等能力；行为规范系统复用了归因系统中的特定因素分析阶段，以此作为决策树的判断基础。
     \end{frame}
 
 
@@ -93,14 +93,12 @@
             考虑一所高校，在不存在干涉的情况下，永夜势力在小于 1 前，恒呈指数型增长。
         \end{theorem}
         \begin{theorem}[永夜方程]
-            考虑一所高校，人为干涉存在 x 的概率无效。x 是下列方程的解，其中 n 为全校学生总数。
-        \end{theorem}
-
-        \begin{equation}
+            考虑一所高校，人为干涉无效的概率为$x$。$x$是方程~\ref{eqn:x}~的解，其中$n$为全校学生总数。
+        \begin{equation}\label{eqn:x}
             \begin{vmatrix}
             \begin{bmatrix}
                     x & \Phi(\pi) \\
-                    \sum_{i = 1}^n xi & \exp(xi)
+                    \sum_{i = 1}^n x_i & \exp(x_i)
             \end{bmatrix}
             \begin{bmatrix}
                     1 & \cdots & n \\
@@ -108,6 +106,7 @@
             \end{bmatrix}
             \end{vmatrix} = \dfrac{\pi}{x}
         \end{equation}
+        \end{theorem}
     \end{frame}
 
     % “简单公式” 示例
@@ -116,7 +115,7 @@
 
         假设 $id \in [1850001, 1859999]$，识别器与分析器共有 $m$ 个机器，第 $i$ 个机器负责 $[1850001 + i \times \frac{9999}{m}, 1859999 + (i + 1) \times \frac{9999}{100}]$ 个单位。
 
-        识别层机器会发送分析层机器需要的特定记录到存储中。存储中每个节点大小为 16 KB，由于一条记录占据 400 B 的空间，有：
+        识别层机器会发送分析层机器需要的特定记录到存储中。存储中每个节点大小为 16~KB，由于一条记录占据 400~B 的空间，有：
 
         $$
         Node = \dfrac{16 \times 1024\operatorname{B}}{400 \operatorname{B}} \approx 16
@@ -146,7 +145,9 @@
             \caption{各技术对决策系统的影响}
             \label{tab:tech-strategy}
         \end{table}
-
+        
+        \vspace{-1em}  % use vspace and hspace to adjust space
+        
         \begin{columns}
             \small
             \column{.5\textwidth}

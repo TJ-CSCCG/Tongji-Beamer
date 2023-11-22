@@ -1,5 +1,5 @@
 %% body.tex
-%% Copyright 2022 skyleaworlder
+%% Copyright 2023 TJ-CSCCG
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -11,7 +11,7 @@
 %
 % This work has the LPPL maintenance status "maintained".
 %
-% This Current Maintainer of this work is skyleaworlder.
+% This Current Maintainer of this work is Rizhong Lin.
 %
 % This work consists of all the *.tex and *.sty files in
 %   https://github.com/TJ-CSCCG/Tongji-Beamer
@@ -113,19 +113,17 @@
     \begin{frame}{负载分析}
         系统在设计时进行了计算下沉，分离图像处理的多个步骤，实现计算的高效性。
 
-        假设 $id \in [1850001, 1859999]$，识别器与分析器共有 $m$ 个机器，第 $i$ 个机器负责 $[1850001 + i \times \frac{9999}{m}, 1859999 + (i + 1) \times \frac{9999}{100}]$ 个单位。
+        假设 $id \in [1850001, 1859999]$，识别器与分析器共有 $m$ 个机器，第 $i$ 个机器负责 $\left[1850001 + i \times \frac{9999}{m}, 1859999 + (i + 1) \times \frac{9999}{100}\right]$ 个单位。
 
         识别层机器会发送分析层机器需要的特定记录到存储中。存储中每个节点大小为 16~KB，由于一条记录占据 400~B 的空间，有：
-
-        $$
-        Node = \dfrac{16 \times 1024\operatorname{B}}{400 \operatorname{B}} \approx 16
-        $$
+        \begin{equation}
+            Node = \dfrac{16 \times 1024\operatorname{B}}{400 \operatorname{B}} \approx 16
+        \end{equation}
 
         假设 $t$ 为一次操作所花费的时间，设单表大小为 $M$。在不进行计算分离时，消耗的时间 $T = Mt$。但在分离过后，全过程时间为：
-
-        $$
-        T' = \dfrac{M}{m} + \dfrac{9999}{m} \cdot t < Mt, \quad \text{if } m > \dfrac{1}{t} + \dfrac{9999}{M}
-        $$
+        \begin{equation}
+            T' = \dfrac{M}{m} + \dfrac{9999}{m} \cdot t < Mt, \quad \text{if } m > \dfrac{1}{t} + \dfrac{9999}{M}
+        \end{equation}
     \end{frame}
 
 
@@ -134,13 +132,13 @@
     \begin{frame}{决策系统设计}
         \begin{table}[]
             \centering
-            \begin{tabular}{c|c|c}
-            \textbf{运行时间} & \textbf{实验组} & \textbf{对照组（单位 1）} \\
-            \hline
-                设计模式使用 vs. 不使用 & 1.1 & 1 \\
-                Julia vs. Python & 0.7 & 1 \\
-                负载均衡集群 vs. 单机 & 0.5 & 1 \\
-                集群分布式缓存 vs. 无缓存 & 0.8 & 1 \\
+            \begin{tabular}{@{}ccc@{}}
+                \toprule
+                \textbf{运行时间} & \textbf{实验组} & \textbf{对照组（单位 1）} \\ \midrule
+                设计模式使用 --- 不使用 & 1.1 & 1 \\
+                Julia --- Python & 0.7 & 1 \\
+                负载均衡集群 --- 单机 & 0.5 & 1 \\
+                集群分布式缓存 --- 无缓存 & 0.8 & 1 \\ \bottomrule
             \end{tabular}
             \caption{各技术对决策系统的影响}
             \label{tab:tech-strategy}
